@@ -1,27 +1,73 @@
+// Dependencies
+import axios from "axios";
+import { useCallback } from "react";
+import { useImmer } from "use-immer";
+
+// Services
+import { restAPI } from "@/services/api";
+
 // Types
-import { FormResponseData } from "@/components/compositions/form";
+import type {
+    AddressState,
+    AddressActions,
+    AddressStore,
+    AddressAddressData,
+} from "./home.types";
+import { addressBuilder } from "./home.helpers";
 
-// Service
-import { restApi } from "@/services/rest-api";
+const defaultState = {
+    address: {
+        data: undefined,
+        isLoading: true,
+    },
+};
 
-export const contractGenerate = async (data: FormResponseData) => {
-    const response = await restApi.post("/criar-contrato", data, {
-        responseType: "blob",
-    });
+export const useAddressStore = (): AddressStore => {
+    const [state, setState] = useImmer<AddressState>(defaultState);
 
-    const blob = new Blob([response.data], {
-        type: "application/pdf",
-    });
+    const clearState: AddressActions["clearState"] = useCallback(() => {
+        setState(defaultState);
+    }, [setState]);
 
-    const url = window.URL.createObjectURL(blob);
+    const checkAddress: AddressActions["checkAddress"] = useCallback(
+        async (cep) => {
+            try {
+                setState((draft: AddressState) => {
+                    draft.address.isLoading = true;
+                });
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "contrato-de-locacao.pdf";
+                const response = await restAPI.get<AddressAddressData>(
+                    `/${cep}/json`,
+                );
 
-    document.body.appendChild(a);
-    a.click();
+                const formattedResponse = addressBuilder(response);
 
-    a.remove();
-    window.URL.revokeObjectURL(url);
+                setState((draft: AddressState) => {
+                    draft.address.data = formattedResponse;
+                    draft.address.isLoading = false;
+                });
+
+                return true;
+            } catch (error) {
+                if (axios.isCancel(error)) {
+                    return false;
+                }
+
+                setState((draft: AddressState) => {
+                    draft.address.isLoading = false;
+                });
+
+                return false;
+            }
+        },
+        [setState],
+    );
+
+    return {
+        state,
+        actions: {
+            clearState,
+            checkAddress,
+        },
+    };
 };

@@ -1,6 +1,9 @@
 // Dependencies
 import { FunctionComponent } from "react";
 
-export const HomePage: FunctionComponent = () => {
-    return <div>Home Page</div>;
+// Types
+import { HomePageProps } from "./home.types";
+
+export const HomePage: FunctionComponent<HomePageProps> = ({ testMessage }) => {
+    return <div>{testMessage}</div>;
 };

@@ -1,22 +1,34 @@
 // Dependencies
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 
 // Page
 import { HomePage } from "@/components/pages/home-page";
 
-// Service
-//import { restAPI } from "@/services/api";
+// Stores
+import { useAddressStore } from "./home.stores";
 
 export const Home: FunctionComponent = () => {
-    //const [addressInfo, setAddressInfo] = useState();
+    const { state, actions } = useAddressStore();
 
-    // const handleCepValidate = async () => {
-    //     const response = await restAPI.get("/25720062/json");
+    const { address } = state;
 
-    //     setAddressInfo(response?.data);
+    const { checkAddress } = actions;
 
-    //     console.log(addressInfo);
-    // };
+    useEffect(() => {
+        checkAddress("25720062");
+    }, []);
 
-    return <HomePage />;
+    useEffect(() => {
+        console.log(address);
+    }, [address]);
+
+    return (
+        <HomePage
+            testMessage={
+                address.isLoading
+                    ? "Carregando"
+                    : `${address.data?.street}, ${address.data?.addOn} - ${address.data?.neighborhood}, ${address.data?.city} - ${address.data?.uf}`
+            }
+        />
+    );
 };
