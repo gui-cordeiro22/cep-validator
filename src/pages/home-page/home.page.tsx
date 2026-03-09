@@ -6,6 +6,8 @@ import { HomePage } from "@/components/pages/home-page";
 
 // Stores
 import { useAddressStore } from "./home.stores";
+import { Header } from "@/components/sections/header";
+import { Typography } from "@/components/utilities/typography";
 
 export const Home: FunctionComponent = () => {
     const { state, actions } = useAddressStore();
@@ -16,6 +18,7 @@ export const Home: FunctionComponent = () => {
 
     useEffect(() => {
         checkAddress("25720062");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -24,6 +27,17 @@ export const Home: FunctionComponent = () => {
 
     return (
         <HomePage
+            headerSectionCompositions={
+                <Header
+                    brandTitleElement={
+                        <Typography
+                            text="Validador de CEP"
+                            color="black"
+                            variant="display"
+                        />
+                    }
+                />
+            }
             testMessage={
                 address.isLoading
                     ? "Carregando"

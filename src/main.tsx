@@ -1,12 +1,18 @@
 // Dependencies
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { ThemeProvider } from "styled-components";
 
 // Components
 import App from "./App.tsx";
 
+// Styles
+import { theme } from "./styles/theme/index.ts";
+
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+    <StrictMode>
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
+    </StrictMode>,
 );
