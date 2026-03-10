@@ -31,7 +31,11 @@ export const Home: FunctionComponent = () => {
             headerSectionCompositions={
                 <Header
                     iconElement={
-                        <Icon variant="mapPinCheck" color="#000" size={32} />
+                        <Icon
+                            variant="magnifyingGlass"
+                            color="#000"
+                            size={32}
+                        />
                     }
                     brandTitleElement={
                         <Typography

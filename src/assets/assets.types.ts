@@ -7,7 +7,7 @@ import { FunctionComponent, SVGProps } from "react";
 //     [key in ImageVariants]: string;
 // };
 
-export type IconVariants = "mapPinCheck";
+export type IconVariants = "mapPinCheck" | "magnifyingGlass" | "spinner";
 export type Icon = {
     type: IconType;
     source: FunctionComponent<SVGProps<SVGSVGElement>>;
