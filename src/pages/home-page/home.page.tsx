@@ -8,6 +8,7 @@ import { HomePage } from "@/components/pages/home-page";
 import { useAddressStore } from "./home.stores";
 import { Header } from "@/components/sections/header";
 import { Typography } from "@/components/utilities/typography";
+import { Icon } from "@/components/elements/icon";
 
 export const Home: FunctionComponent = () => {
     const { state, actions } = useAddressStore();
@@ -29,6 +30,9 @@ export const Home: FunctionComponent = () => {
         <HomePage
             headerSectionCompositions={
                 <Header
+                    iconElement={
+                        <Icon variant="mapPinCheck" color="#000" size={32} />
+                    }
                     brandTitleElement={
                         <Typography
                             text="Validador de CEP"

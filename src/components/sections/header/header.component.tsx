@@ -2,24 +2,22 @@
 import { FunctionComponent } from "react";
 
 // Styles
-import { Container } from "./header.styles";
-
-// Assets
-import pinMap from "@/assets/svg/map-pin-check.svg";
+import { Container, ContentWrapper } from "./header.styles";
 
 // Types
 import { HeaderProps } from "./header.types";
 
 export const Header: FunctionComponent<HeaderProps> = ({
+    iconElement,
     brandTitleElement,
 }) => {
     return (
         <Container>
-            <div>
-                <img src={pinMap} alt="" />
+            <ContentWrapper>
+                {iconElement}
 
                 {brandTitleElement}
-            </div>
+            </ContentWrapper>
         </Container>
     );
 };

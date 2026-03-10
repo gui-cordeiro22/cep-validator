@@ -4,7 +4,7 @@ import styled from "styled-components";
 // Styles
 import { pageGutter } from "@/styles/gutter";
 
-export const Container = styled.div`
+export const Container = styled.main`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -12,16 +12,12 @@ export const Container = styled.div`
     width: 100%;
 
     ${pageGutter}
+`;
 
-    div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 10px;
-
-        img {
-            width: 32px;
-        }
-    }
+export const ContentWrapper = styled.section`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
 `;
