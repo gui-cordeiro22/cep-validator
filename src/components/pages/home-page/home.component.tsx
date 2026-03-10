@@ -6,13 +6,13 @@ import { HomePageProps } from "./home.types";
 
 export const HomePage: FunctionComponent<HomePageProps> = ({
     headerSectionCompositions,
-    testMessage,
+    inputCardSectionCompositions,
 }) => {
     return (
         <Fragment>
             {headerSectionCompositions}
 
-            {testMessage}
+            {inputCardSectionCompositions}
         </Fragment>
     );
 };

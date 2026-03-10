@@ -1,12 +1,9 @@
 // Dependencies
 import { ReactNode } from "react";
 
-export type HomePageData = {
-    testMessage?: string;
-};
-
 export type HomePageElements = {
     headerSectionCompositions: ReactNode;
+    inputCardSectionCompositions: ReactNode;
 };
 
-export type HomePageProps = HomePageElements & HomePageData;
+export type HomePageProps = HomePageElements;
