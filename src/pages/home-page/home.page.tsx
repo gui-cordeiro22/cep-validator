@@ -10,6 +10,8 @@ import { Header } from "@/components/sections/header";
 import { Typography } from "@/components/utilities/typography";
 import { Icon } from "@/components/elements/icon";
 import { Card } from "@/components/compositions/card";
+import { Input } from "@/components/elements/input";
+import { Button } from "@/components/elements/button";
 
 // Types
 import { AddressCheckParam } from "./home.types";
@@ -20,9 +22,9 @@ import { useAddressStore } from "./home.stores";
 export const Home: FunctionComponent = () => {
     const { register, handleSubmit, reset } = useForm();
 
-    const { actions } = useAddressStore();
+    const { state, actions } = useAddressStore();
 
-    //const { address } = state;
+    const { address } = state;
 
     const { checkAddress } = actions;
 
@@ -35,6 +37,8 @@ export const Home: FunctionComponent = () => {
     // DEBUG
     // useEffect(() => {
     //     console.log(address.data);
+
+    //     console.log(address.isLoading);
     // }, [address.data]);
 
     return (
@@ -64,13 +68,22 @@ export const Home: FunctionComponent = () => {
                     }
                     formSectionCompositions={
                         <form onSubmit={handleSubmit(handleAddressCheck)}>
-                            <input
+                            <Input
                                 {...register("cep")}
                                 type="text"
                                 placeholder="Informe o CEP"
                             />
 
-                            <button type="submit">Checar endereço</button>
+                            <Button
+                                isActive
+                                variant="dark-cta"
+                                labelElement={
+                                    address.isLoading
+                                        ? "Checando endereço"
+                                        : "Checar endereço"
+                                }
+                                type="submit"
+                            />
                         </form>
                     }
                 />

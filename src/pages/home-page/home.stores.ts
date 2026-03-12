@@ -13,12 +13,14 @@ import type {
     AddressStore,
     AddressAddressData,
 } from "./home.types";
+
+// Helpers
 import { addressBuilder } from "./home.helpers";
 
 const defaultState = {
     address: {
         data: undefined,
-        isLoading: true,
+        isLoading: false,
     },
 };
 
@@ -42,10 +44,12 @@ export const useAddressStore = (): AddressStore => {
 
                 const formattedResponse = addressBuilder(response);
 
-                setState((draft: AddressState) => {
-                    draft.address.data = formattedResponse;
-                    draft.address.isLoading = false;
-                });
+                setTimeout(() => {
+                    setState((draft: AddressState) => {
+                        draft.address.data = formattedResponse;
+                        draft.address.isLoading = false;
+                    });
+                }, 2000);
 
                 return true;
             } catch (error) {
