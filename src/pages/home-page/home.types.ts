@@ -24,3 +24,7 @@ export type AddressStore = {
     state: AddressState;
     actions: AddressActions;
 };
+
+export type AddressCheckParam = {
+    cep?: string;
+};

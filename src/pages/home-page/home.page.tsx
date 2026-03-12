@@ -1,5 +1,6 @@
 // Dependencies
 import { FunctionComponent } from "react";
+import { useForm } from "react-hook-form";
 
 // Page
 import { HomePage } from "@/components/pages/home-page";
@@ -10,15 +11,31 @@ import { Typography } from "@/components/utilities/typography";
 import { Icon } from "@/components/elements/icon";
 import { Card } from "@/components/compositions/card";
 
+// Types
+import { AddressCheckParam } from "./home.types";
+
 // Stores
-//import { useAddressStore } from "./home.stores";
+import { useAddressStore } from "./home.stores";
 
 export const Home: FunctionComponent = () => {
-    // const { state, actions } = useAddressStore();
+    const { register, handleSubmit, reset } = useForm();
 
-    // const { address } = state;
+    const { actions } = useAddressStore();
 
-    // const { checkAddress } = actions;
+    //const { address } = state;
+
+    const { checkAddress } = actions;
+
+    const handleAddressCheck = async (data: AddressCheckParam) => {
+        await checkAddress(data.cep);
+
+        reset();
+    };
+
+    // DEBUG
+    // useEffect(() => {
+    //     console.log(address.data);
+    // }, [address.data]);
 
     return (
         <HomePage
@@ -46,8 +63,14 @@ export const Home: FunctionComponent = () => {
                         />
                     }
                     formSectionCompositions={
-                        <form>
-                            <input type="text" placeholder="Informe o CEP" />
+                        <form onSubmit={handleSubmit(handleAddressCheck)}>
+                            <input
+                                {...register("cep")}
+                                type="text"
+                                placeholder="Informe o CEP"
+                            />
+
+                            <button type="submit">Checar endereço</button>
                         </form>
                     }
                 />
